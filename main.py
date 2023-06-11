@@ -3,7 +3,7 @@ from enum import Enum
 
 
 app = FastAPI()
-print(555)
+
 
 # @app.get('/')
 # async def root():
