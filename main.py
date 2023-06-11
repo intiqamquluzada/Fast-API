@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from enum import Enum
 
-app = FastAPI()
 
+app = FastAPI()
+print(555)
 
 # @app.get('/')
 # async def root():
