@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from enum import Enum
-print(555)
+
 app = FastAPI()
 
 
