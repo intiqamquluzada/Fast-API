@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from enum import Enum
-
-
+print(555)
 app = FastAPI()
 
 
@@ -17,8 +16,9 @@ app = FastAPI()
 async def list():
     return {"message": "list"}
 
+
 @app.get("/items/{item_id}")
-async def detail_(item_id:str):
+async def detail_(item_id: str):
     return {"item_id": item_id}
 
 
@@ -27,6 +27,7 @@ class FoodEnum(str, Enum):
     vegetables = "vegetables"
     dairy = "dairy"
 
+
 @app.get("/foods/{food_name}")
 async def get_food(food_name: FoodEnum):
     if food_name == FoodEnum.vegetables:
@@ -34,4 +35,3 @@ async def get_food(food_name: FoodEnum):
     if food_name.value == "fruits":
         return {"food_name": food_name, "message": "you are more healthy"}
     return {"food_name": food_name, "message": "Im diary"}
-
