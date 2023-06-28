@@ -58,6 +58,6 @@ async def get_item(item_id: str, q: Optional[str] = None, short: bool = False):
         item.update({"q":q})
 
     if not short:
-        item.update({"description": "loremloremloremloremlorem"})
+        item.update({"description": "loremloremloregfrfgmloremlorem"})
     return item
 
