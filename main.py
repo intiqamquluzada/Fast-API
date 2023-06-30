@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query, Path
 from enum import Enum
 from typing import Optional
 from pydantic import BaseModel
@@ -46,9 +46,9 @@ fake_items_db = [
 ]
 
 
-@app.get("/items")
-async def list_items(skip: int = 0, limit: int = 10):
-    return fake_items_db[skip: skip + limit]
+# @app.get("/items")
+# async def list_items(skip: int = 0, limit: int = 10):
+#     return fake_items_db[skip: skip + limit]
 
 
 @app.get("/items/{item_id}")
@@ -80,6 +80,42 @@ class Item(BaseModel):
     tax: Optional[float] = None
 
 
-@app.post("/items")
-async def create_item(item: Item):
-    return item
+# @app.post("/items")
+# async def create_item(item: Item):
+#     item_dict = item.dict()
+#     if item.tax:
+#         price_with_tax = item.price + item.tax
+#         item_dict.update({"price_With_tax": price_with_tax})
+#     return item_dict
+
+
+@app.put("/items/{item_id}")
+async def create_item_with_put(item_id: int, item: Item, q: Optional[str] = None):
+    result = {"item_id": item_id, **item.dict()}
+    if q:
+        result.update({"q": q})
+
+    return result
+
+
+@app.get("/items")
+async def list_items(q: Optional[list[str]] = Query(None)):
+    result = {}
+    if q:
+        result.update({"q": q})
+    return result
+
+
+@app.get("/items_hidden")
+async def get_hidden_items(hidden_query: Optional[str] = Query(None, include_in_schema=False)):
+    if hidden_query:
+        return {"hidden_query": hidden_query}
+    return {"hidden_query": "Not found"}
+
+@app.get("/items_validation/{item_id}")
+async def read_items_validation(q: Optional[str],item_id: int = Path(...,gt=10, lt=100), size: Optional[float] = Query(..., gt=1, lt=7.76)):
+    results = {"item_id": item_id, "size": size}
+    if q:
+        results.update({"q":q})
+    return results
+
