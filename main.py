@@ -119,5 +119,3 @@ async def read_items_validation(q: Optional[str],item_id: int = Path(...,gt=10, 
         results.update({"q":q})
     return results
 
-print('ayri proyekt isleyirem')
-print(1)
