@@ -119,3 +119,5 @@ async def read_items_validation(q: Optional[str],item_id: int = Path(...,gt=10, 
         results.update({"q":q})
     return results
 
+print(444)
+print(222)
